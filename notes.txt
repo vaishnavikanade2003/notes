@@ -1,0 +1,717 @@
+////////////////////////////////////////////////////////////////////////////////1)Four API CRUD operation://///////////////////////////////////////
+
+   -require mongodb, postman,vs code
+   -on terminal npm init //create package.json
+   -create index.js file
+   -open compass :
+                 show dbs;
+                 use student;
+                 db.createCollection('profile')
+                 db.profile.insertOne({name:"Rohit",email:"r@gmail.com", city:"pune"})
+    -create mongodb.js
+    -on terminal npm i mongodb
+    -on terminal npm i express
+    -write code in mongodb.js:
+                              const {MongoClient}=require('mongodb');
+                              const url="mongodb://localhost:27017";
+                              const database='student';
+                              const client=new MongoClient(url);
+
+                              const dbConnect=async()=>{
+                              const result=await client.connect();
+                              const db=await result.db(database);
+                              return db.collection('profile');
+                              }
+
+                              module.exports=dbConnect;
+     -write code in index.js:
+                             const dbConnect=require('./mongodb');
+                             const express = require('express');
+                             const { response }=require('express');
+                             const app=express();
+                             app.use(express.json())
+
+
+                             //get api
+                             app.get('/',async(req,res)=>{
+                             let result=await dbConnect();
+                             result=await result.find().toArray();
+                             res.send(result);
+                             })
+
+                             //post api
+                             app.post('/',async(req,res)=>{
+                             let result=await dbConnect();
+                             result=await result.insertOne(req.body);
+                             res.send("inserted successfully");
+                             })
+
+                             //put api
+                             app.put('/:name',async(req,res)=>{
+                             let result=await dbConnect();
+                             result=await              result.updateOne({name:req.params.name},{$set:req.body});
+                            res.send("data updated successfully");
+                            })
+
+                            //delete api
+                            app.delete('/:name',async(req,res)=>{
+                           let result=await dbConnect();
+                           result=await result.deleteOne({name:req.params.name});
+                           res.send("data deleted successfully");
+                           })
+                          app.listen(3000);
+
+         - on terminal node index.js
+            
+         -open postman:
+                      http://localhost:3000/
+                      apply get request,post request,delet request ,etc
+
+
+/////////////////////////////////////////////////////////////////////////////JQuery Mobile Application//////////////////////////////////////////////////////////////
+
+-Create one folder  
+-create index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title><link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+    <div data-role="page">
+        <div data-role="header" data-theme="b">
+          <h1>Omkara Arts</h1>
+        </div>
+        <div data-role="navbar" data-grid="c">
+            <ul>
+            <li><a href="index.html" class="ui-btn-active">Home</a></li>
+            <li><a href="about.html" >About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="login_register.html">Login/Register</a></li>
+            </ul>
+            </div>
+            <center><h1> Some Overview of Art</h1></center>
+            <div class="conent">
+                <center>
+                    
+                <div class="rows">
+                    <div>
+                        <img src="images/im1.jpeg" alt="img1">
+                        <img src="images/img3.jpeg" alt="img3">
+                        <img src="images/img4.jpeg" alt="img4">
+                        <img src="images/im2.jpeg" alt="img2">
+                        <img src="images/img5.jpeg" alt="img5">
+                    </div>
+                </div>
+
+                <div class="rows">
+                    <div>
+                        <img src="images/im1.jpeg" alt="img1">
+                        <img src="images/img3.jpeg" alt="img3">
+                        <img src="images/img4.jpeg" alt="img4">
+                        <img src="images/im2.jpeg" alt="img2">
+                        <img src="images/img5.jpeg" alt="img5">
+                    </div>
+                </div>
+                <div class="rows">
+                    <div>
+                        <img src="images/im1.jpeg" alt="img1">
+                        <img src="images/img3.jpeg" alt="img3">
+                        <img src="images/img4.jpeg" alt="img4">
+                        <img src="images/im2.jpeg" alt="img2">
+                        <img src="images/img5.jpeg" alt="img5">
+                    </div>
+                </div>
+                <div class="rows">
+                    <div>
+                        <img src="images/im1.jpeg" alt="img1">
+                        <img src="images/img3.jpeg" alt="img3">
+                        <img src="images/img4.jpeg" alt="img4">
+                        <img src="images/im2.jpeg" alt="img2">
+                        <img src="images/img5.jpeg" alt="img5">
+                    </div>
+                </div>
+                <div class="rows">
+                    <div>
+                        <img src="images/im1.jpeg" alt="img1">
+                        <img src="images/img3.jpeg" alt="img3">
+                        <img src="images/img4.jpeg" alt="img4">
+                        <img src="images/im2.jpeg" alt="img2">
+                        <img src="images/img5.jpeg" alt="img5">
+                    </div>
+                </div>
+                
+            </center>
+    
+            </div>
+            <div data-role="footer" data-theme="b">
+                <center>
+               <div class="quicklinks">
+                <h3>Quicklinks</h3>
+                <a href="index.html">Home</a><br><br>
+                <a href="about.html" >About</a><br><br>
+                <a href="products.html">Products</a><br><br>
+                <a href="login_register.html">Login/Register</a><br><br>
+               </div>
+               <p>Copyright2024 Vaishnavi Kanade , All rights Reserverd</p>
+            </center>
+            </div>
+    </div>
+</body>
+</html>
+
+-download four images from google and replace it images from code
+-same create about, product page and write code likewise only and go with live server
+
+
+///////////////////////////////////////////////angular application for register user login user//////////////////
+
+-create one folder open with vs code
+-on terminal npm version
+-on terminal npm install -g @angular/cli@latest
+-on terminal ng new part-c //then y //css
+       if not working try this : powershell -ExecutionPolicy Bypass -Command "ng new part-c"
+-part-c->src->app->
+-open app.component.html file remove all the content inside it and write code :
+  
+  <h1>{{title}}</h1>
+
+<input type="text" #name placeholder="Enter name: " name="Name"><br>
+<input type="text" #address placeholder="Enter address: " name="Address"><br>
+
+<input type="text" #contact placeholder="Enter contact: " name="Contact"><br>
+
+<input type="email" #email placeholder="Enter email: " name="Email"><br>
+
+<input type="password" #password placeholder="Enter password: " name="password"><br>
+
+<button (click)="getValue(name.value,address.value,contact.value,email.value)">Register</button>
+
+<h1>Your Registered data</h1><br>
+<p>Name:{{displayname}}</p>
+<p>Address:{{displayaddress}}</p>
+<p>Contact:{{displaycontact}}</p>
+<p>Email:{{displayemail}}</p>
+
+-open app.components.ts and write code:
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'Rgisteration Form';
+  displayname='';
+  displayaddress='';
+  displaycontact='';
+  displayemail='';
+  getValue(name:string,address:string,contact:string,email:string){
+    this.displayname=name;
+    this.displayaddress=address;
+    this.displaycontact=contact;
+    this.displayemail=email;
+  }
+}
+
+-open app.component.css file and write code:
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+/* Additional colorful styling */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #ff7f0e; /* Orange */
+}
+
+button {
+  background-color: #28a745; /* Green */
+}
+
+button:hover {
+  background-color: #218838; /* Dark green */
+}
+
+-open terminal ng serve or  powershell -ExecutionPolicy Bypass -Command "ng serve" y
+- go  http://localhost:4200/
+
+
+///////////////////////////website using bootstrap/////////////////////////////////////////
+-create one folder
+-create one index.html file
+-write code int it:
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Stock Trading Admin Dashboard</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #wrapper {
+            display: flex;
+        }
+
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #343a40;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #content {
+            flex-grow: 1;
+            padding: 30px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+            border-bottom: 1px solid #47748b;
+        }
+
+        #sidebar ul p {
+            color: #fff;
+            padding: 10px;
+        }
+
+        #sidebar ul li a {
+            padding: 10px;
+            font-size: 1.1em;
+            display: block;
+        }
+
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+
+        #sidebar ul li.active>a,
+        a[aria-expanded="true"] {
+            color: #fff;
+            background: #6d7fcc;
+        }
+
+        a[data-toggle="collapse"] {
+            position: relative;
+        }
+
+        #content {
+            width: 100%;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        @media (max-width:768px) {
+            #sidebar {
+                min-width: 80px;
+                max-width: 80px;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            #sidebar a {
+                text-align: center;
+                padding: 10px;
+                width: 100%;
+                font-size: 12px;
+            }
+
+            #sidebar ul.components {
+                padding: 0;
+            }
+
+            #sidebar ul li {
+                text-align: center;
+            }
+
+            #sidebar ul li a {
+                padding: 20px 10px;
+            }
+
+            #sidebar ul li a span {
+                font-size: 11px;
+            }
+
+            #content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-dark" id="sidebar">
+            <div class="sidebar-heading">Stock Trading Admin</div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#">
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Stocks
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Trades
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Portfolios
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Reports
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page Content -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" id="sidebarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+
+            <div class="container-fluid">
+
+                <h2 class="mt-4">Stock Trading Dashboard</h2>
+
+                <!-- Total Statistics Cards -->
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Stocks</h5>
+                                <p class="card-text">50</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Trades</h5>
+                                <p class="card-text">100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Portfolios</h5>
+                                <p class="card-text">30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Sections and Cards -->
+
+                <!-- Stocks Table -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Stocks Overview</h5>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Stock Symbol</th>
+                                            <th>Price</th>
+                                            <th>Change</th>
+                                            <th>Volume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>APPLE</td>
+                                            <td>$150.25</td>
+                                            <td>+2.5%</td>
+                                            <td>1,000,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>GOOGLE</td>
+                                            <td>$2500.75</td>
+                                            <td>-1.2%</td>
+                                            <td>500,000</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Trades -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Recent Trades</h5>
+                                <ul class="list-group">
+                                    <li class="list-group-item">APPLE - Buy 100 shares</li>
+                                    <li class="list-group-item">GOOGEL - Sell 50 shares</li>
+                                    <!-- Add more trades as needed -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more cards or sections as needed -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $("#sidebarCollapse").on("click", function () {
+            $("#sidebar").toggleClass("active");
+        });
+    </script>
+
+</body>
+
+</html>
+
+-go with live server
+//////////////////////////////////////////////////create node js static website ////////////////////
+-create one folder
+-on terminal npm init
+-on terminal npm install express --save
+-create index.js and write the belove code:
+ const express = require('express');
+const app = express();
+
+// Serve files from the public directory
+app.use(express.static('public'));
+
+app.listen(2003,()=>{
+  console.log("Server is started");
+})
+
+-create one folder named public under our main folder
+-create the index.html file inside public folder
+-write code inside the html file from bootstrap assignment file
+-on terminal node index.js
+-go to browser type localhost:2003
+
+////////////////////////////////////////////////////AJAX post methods/////////////////////
+-create folder
+-create index.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+
+    <h2>Registered Users</h2>
+    <ul id="userList"></ul>
+
+    <script>
+        let userList = []; // Array to hold registered users
+
+        function registerUser() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+
+            const newUser = {
+                username: username,
+                email: email
+            };
+
+            // Simulate sending data to server using AJAX POST
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', true); // Simulated endpoint (JSONPlaceholder)
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log('User registration successful:', xhr.responseText);
+                    userList.push(newUser); // Add user to local array (simulated)
+                    displayUsers(); // Update displayed users
+                } else {
+                    console.error('Failed to register user:', xhr.statusText);
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Network error occurred');
+            };
+            xhr.send(JSON.stringify(newUser));
+        }
+
+        function displayUsers() {
+            const userListElement = document.getElementById('userList');
+            userListElement.innerHTML = ''; // Clear previous list
+
+            userList.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Username: ${user.username}, Email: ${user.email}`;
+                userListElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
+
+/////////////////////////////////////////////Docker Desktop////////////////////////
+-install node.js , Docker Desktop, Vs Code
+-start quickstart terminal
+-install Docker Extension from vs code
+-create folder in lowercase
+-create docker file named Docker
+-write code in Docker file:
+FROM node:alpine
+COPY . /folder_name
+CMD node/folder_name/index.js
+-on terminal run as:
+ node index.js
+docker build -t folder_name
+docker images
+
+
+/////////////////////////////////////////GitHub Commands///////////////////////////////////////////////
+
+-create one folder
+-create one Vaishnavi.txt file
+-open git create new repo as public
+-On terminal
+git --version
+-add in text file
+-on terminal
+git add.
+git status
+-go to repo then https copy the link 
+-on terminal: 
+git remote add origin "//link"
+git status
+git commit -m "First Commit"
+git status
+git push -u origin master
+/////////////////////////////
+
+
+    
+                     
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
